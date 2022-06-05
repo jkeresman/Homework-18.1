@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+    {% for page_number in range(messages.pages) %}
+        <a href="/?page={{page_number + 1}}">{{page_number + 1}}</a>
+    {% endfor %}
+
+    <form action="/message-handler" method="post">
+        <div class="first_name">
+            <label for="first-name">Enter your first name: </label>
+            <input type="text" id="first-name" name="first-name">
+        </div>
+        <div class="last_name">
+            <label for="last-name">Enter your last name: </label>
+            <input type="text" id="last-name" name="last-name">
+        </div>
+        <div class="email">
+            <label for="email">Enter your email</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div class="message">
+            <label for="message">Leave us a message!</label>
+            <textarea name="message" id="message" cols="10" rows="10"></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if messages.items %}
+        <h1>Messages!</h1>
+        <hr>
+
+        {% for message in messages.items %}
+            <p>{{message.first_name}} {{message.last_name}}: {{message.message}}</p>
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock content %}
